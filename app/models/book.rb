@@ -22,4 +22,8 @@ class Book
   field :subject_places, type: Array
   field :subject_times, type: Array  
 
+  def as_indexed_json
+    as_json(except: [:id, :_id])
+  end
+
 end

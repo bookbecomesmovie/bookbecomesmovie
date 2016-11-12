@@ -471,9 +471,9 @@
                         for(term in result){
                         render = false;
                           if (result[term]._source.imagebook != null && result[term]._source.imagebook.indexOf("cloudinary") != -1) {
-                            $("#books_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"" + result[term]._source.imagebook + "\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.title + "</b></div><p>" + truncateString(result[term]._source.description2, setLength, ' ', '...') + "</p></li>");
+                            $("#books_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"" + result[term]._source.imagebook + "\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.title + "</b><p>" + truncateString(result[term]._source.description2, setLength, ' ', '...') + "</p></div></li>");
                           } else {
-                            $("#books_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"/assets/other_images/nobookimage.png\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.title + "</b></div><p>" + truncateString(result[term]._source.description2, setLength, ' ', '...') + "</p></li>");
+                            $("#books_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"/assets/other_images/nobookimage.png\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.title + "</b><p>" + truncateString(result[term]._source.description2, setLength, ' ', '...') + "</p></div></li>");
                           }
                         }
                       }
