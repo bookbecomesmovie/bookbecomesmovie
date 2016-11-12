@@ -437,6 +437,9 @@
               <script>
                 var setLength=130;
                 function truncateString(string, limit, breakChar, rightPad) {
+
+                   if (string == null) return '';
+
                    if (string.length <= limit) return string;
 
                    var substr = string.substr(0, limit);
@@ -487,24 +490,61 @@
         </article><!-- .section-wrapper -->
 
         <article id="authors" class="section-wrapper clearfix" data-custom-background-img="/assets/other_images/bg8.jpg">
-          <div class="content-wrapper clearfix">
+          <div class="content-wrapper-search clearfix">
             <h1 class="section-title">Authors</h1>
-            <!-- CONTACT FORM -->
             <div class="col-sm-7 col-md-9">
-              <!-- IMPORTANT: change the email address at the top of the assets/php/mail.php file to the email address that you want this form to send to -->
-              <form class="form-style validate-form clearfix" action="assets/php/mail.php" method="POST" role="form">
-                <!-- form right col -->
+              <%= form_tag(:search_authors, :method=>'get', :multipart => true) do %>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" class="text-field form-control validate-field required" data-validation-type="string" id="form-name" placeholder="Full Name" name="name">
+                    <input type="text" class="author_search text-field form-control validate-field required" data-validation-type="string" id="form-name" placeholder="Full Name" name="q" autocomplete="false">
                   </div>
                   <div class="form-group">
                     <img src="/assets/theme_images/loader-form.GIF" class="form-loader">
                     <button type="submit" class="btn btn-sm btn-outline-inverse">Submit</button>
+                  </div>  
+                </div> 
+                <div class="col-md-12">               
+                  <div class="form-group-search ">
+                    <div class="form-group form-general-error-container" id="authors_search"></div>
                   </div>
-                  <div class="form-group form-general-error-container"></div>
-                </div><!-- end: form right col -->
-              </form>
+                </div>                
+              <% end %>
+              <script>
+                $('.author_search').keyup(function(){
+                var q = $(this).val();
+                  if (q.length>2 || q.length==0){
+                    $.ajax({
+                      type: "GET",
+                      url: "/authors/search.json",
+                      dataType: "json",
+                      data: {'q': q},
+                      success:function(result){                        
+                          $("#authors_item").remove();
+                          $("#authors_search").after('<ul id="authors_item"></ul>');
+                          render = true;
+                          $("#authors_item").on("click", "div", function(){
+                            window.location.href='/authors/' + $(this).data('id');
+                            return false;
+                          });
+                          /*$("#authors_item").on("click", "div", function(){
+                            $("#book_id").val($(this).data('id'));
+                            $(".book_search").val($(this).text());
+                            $("#authors_item").remove();
+                          });*/
+                        for(term in result){
+                        render = false;
+                          if (result[term]._source.imageauthor != null && result[term]._source.imageauthor.indexOf("cloudinary") != -1) {
+                            $("#authors_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"" + result[term]._source.imageauthor + "\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.name + "</b><p>" + truncateString(result[term]._source.bio, setLength, ' ', '...') + "</p></div></li>");
+                          } else {
+                            $("#authors_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"/assets/other_images/nobookimage.png\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.name + "</b><p>" + truncateString(result[term]._source.bio, setLength, ' ', '...') + "</p></div></li>");
+                          }
+                        }
+                      }
+                    })   
+                  }             
+                });
+              </script>
+    
             </div><!-- end: CONTACT FORM -->
           </div><!-- .content-wrapper -->
         </article><!-- .section-wrapper -->

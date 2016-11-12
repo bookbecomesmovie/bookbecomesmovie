@@ -46,7 +46,7 @@ class BooksController < ApplicationController
     redirect_to books_url, notice: 'Book was successfully destroyed.'
   end
 
-   # GET /books/search
+  # GET /books/search
   def search    
     if params[:q].nil?
       @books = []
