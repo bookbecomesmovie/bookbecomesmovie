@@ -24,4 +24,8 @@ class Author
 	field :bio, type: Array 
 	field :imageauthor, type: String  
 
+	def as_indexed_json
+    as_json(except: [:id, :_id])
+  end
+
 end

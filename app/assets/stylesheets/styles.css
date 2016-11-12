@@ -34,7 +34,11 @@ a {
 a:hover {
     color:#fff;
     color:rgba(255,255,255,1);
-    text-decoration: none;
+    text-decoration: underline;
+}
+
+a:visited {
+    color:#fff !important;
 }
 
 p a {
@@ -793,6 +797,11 @@ table {
     list-style-type: none;    
     margin-bottom: 5px;
     position:relative;
+}
+
+#main-content .section-wrapper .content-wrapper-search .form-group-search ul li p {
+    margin: 5px !important; 
+    font-size: 15px
 }
 
 /* General Heading Styles */

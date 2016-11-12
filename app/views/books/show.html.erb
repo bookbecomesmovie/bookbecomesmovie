@@ -14,7 +14,7 @@
 		  <li id="menu-item-book" class="menu-item scroll"><a href="#book"><% if @book.title %><%= @book.title %><% end %></a></li>
           <li id="menu-item-becomemovie" class="menu-item scroll"><a href="#becomemovie">I like this book!, i want to watch this film</a></li>
           <li id="menu-item-datamovie" class="menu-item scroll"><a href="#datamovie">Are we missing any data from this book?</a></li>
-          <li id="" class="menu-item scroll"><a href="/books" data-no-turbolink>Find more books</a></li>
+          <li id="" class="menu-item scroll"><%= link_to "Find more books", root_path(:anchor => "books") %></li>
 </ul><!-- #main-menu -->
 
 <p id="notice"><%= notice %></p>
