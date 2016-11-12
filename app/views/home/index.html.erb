@@ -532,11 +532,14 @@
                             $("#authors_item").remove();
                           });*/
                         for(term in result){
-                        render = false;
+                          render = false;
+                          bio_author = '';
+                          if (result[term]._source.bio!=null) { bio_author = truncateString(result[term]._source.bio["value"], setLength, ' ', '...')};
+                          
                           if (result[term]._source.imageauthor != null && result[term]._source.imageauthor.indexOf("cloudinary") != -1) {
-                            $("#authors_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"" + result[term]._source.imageauthor + "\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.name + "</b><p>" + truncateString(result[term]._source.bio, setLength, ' ', '...') + "</p></div></li>");
+                            $("#authors_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"" + result[term]._source.imageauthor + "\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.name + "</b><p>" + bio_author + "</p></div></li>");
                           } else {
-                            $("#authors_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"/assets/other_images/nobookimage.png\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.name + "</b><p>" + truncateString(result[term]._source.bio, setLength, ' ', '...') + "</p></div></li>");
+                            $("#authors_item").append("<li class=\"col-md-12\"><div class=\"col-md-1\"><img src=\"/assets/other_images/nobookimage.png\" width=\"50px\"></div><div class=\"col-md-11 text-content title\" data-id="+result[term]._id+"><b>" + result[term]._source.name + "</b><p>" + bio_author + "</p></div></li>");
                           }
                         }
                       }
